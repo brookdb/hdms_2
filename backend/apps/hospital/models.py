@@ -38,3 +38,7 @@ class Employee(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
+    def is_physician(self):
+        return self.role in ("D", "N", "L")
+    def is_admin(self):
+        return self.role in ("R", "HR")

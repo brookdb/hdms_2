@@ -27,8 +27,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'secured_fields',
+    'apps.util.apps.UtilConfig',
     'apps.users.apps.UsersConfig',
-    'apps.hospital.apps.HospitalConfig'
+    'apps.hospital.apps.HospitalConfig',
+    'apps.patient.apps.PatientConfig',
+    'apps.appointment.apps.AppointmentConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +136,8 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL = "users.CustomUser"
+
+
+SECURED_FIELDS_KEY = os.environ.get('SECURED_FIELDS_KEY')
+SECURED_FIELDS_HASH_SALT = os.environ.get('SECURED_FIELDS_HASH_SALT')
+

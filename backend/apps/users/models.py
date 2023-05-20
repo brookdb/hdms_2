@@ -7,6 +7,11 @@ from django.utils.translation import gettext as _
 import binascii
 
 
+GENDER_CHOICES = [
+    ('M', 'Male'),
+    ('F', 'Female'),
+    ('O', 'Other')
+]
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -43,7 +48,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
     first_name = models.CharField(max_length=200, unique=True)
     last_name = models.CharField(max_length=200, unique=True)
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=1, blank=True)
     slug = models.SlugField(max_length=200, unique=True)
+    dob = models.DateTimeField(default=timezone.now)
     updated_on = models.DateTimeField(auto_now=True)
     avatar = models.ImageField(blank=True, null=True, upload_to='media/img/profile/')
     photo_ID = models.ImageField(blank=True, null=True, upload_to='media/img/ID/')
