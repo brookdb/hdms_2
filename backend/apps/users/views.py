@@ -32,11 +32,12 @@ class UserLogin(APIView):
 		assert validate_email(data)
 		assert validate_password(data)
 		serializer = UserLoginSerializer(data=data)
-		if serializer.is_valid(raise_exception=True):
-			user = serializer.check_user(data)
-			login(request, user)
-			return Response(serializer.data, status=status.HTTP_200_OK)
+		serializer.is_valid(raise_exception=True)
 
+		user = serializer.validated_data['user']
+		login(request, user)
+
+		return Response(serializer.data, status=status.HTTP_200_OK)
 
 class UserLogout(APIView):
 	permission_classes = (permissions.AllowAny,)

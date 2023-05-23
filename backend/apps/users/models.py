@@ -49,7 +49,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=200, unique=True)
     last_name = models.CharField(max_length=200, unique=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=1, blank=True)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True,  blank=True)
     dob = models.DateTimeField(default=timezone.now)
     updated_on = models.DateTimeField(auto_now=True)
     avatar = models.ImageField(blank=True, null=True, upload_to='media/img/profile/')

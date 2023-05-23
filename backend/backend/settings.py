@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 
 
 LANGUAGE_CODE = 'en-us'
@@ -51,6 +52,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
 }
@@ -130,8 +132,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-  "http://localhost:8080",
-  "https://[frontend]",
+    "http://localhost:8080",
+    "http://localhost:3000",
+    #"https://[frontend]",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -141,3 +144,9 @@ AUTH_USER_MODEL = "users.CustomUser"
 SECURED_FIELDS_KEY = os.environ.get('SECURED_FIELDS_KEY')
 SECURED_FIELDS_HASH_SALT = os.environ.get('SECURED_FIELDS_HASH_SALT')
 
+# JWT settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+}
